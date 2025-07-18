@@ -25,7 +25,7 @@ fi
 SASSC_OPT="-M -t expanded"
 
 THEME_NAME=Orchis
-THEME_VARIANTS=('' '-Purple' '-Pink' '-Red' '-Orange' '-Yellow' '-Green' '-Teal' '-Grey' '-Darkroast')
+THEME_VARIANTS=('' '-Purple' '-Pink' '-Red' '-Orange' '-Yellow' '-Green' '-Teal' '-Grey')
 COLOR_VARIANTS=('' '-Light' '-Dark')
 SIZE_VARIANTS=('' '-Compact')
 
@@ -254,6 +254,11 @@ xfwm_button() {
       button_min="#e8f467"
     fi
     ;;
+  -Darkroast)
+    button_close="#a07155"
+    button_max="#5f6a66"
+    button_min="#b89c72"
+    ;;
   esac
 
   sed -i "s/#fd5f51/${button_close}/g" "${THEME_DIR}/xfwm4/close-active.svg"
@@ -406,6 +411,11 @@ install_dracula() {
   sed -i "/\$colorscheme:/s/default/dracula/" $SRC_DIR/_sass/_tweaks-temp.scss
 }
 
+install_darkroast() {
+  sed -i "/\@import/s/color-palette-default/color-palette-darkroast/" $SRC_DIR/_sass/_tweaks-temp.scss
+  sed -i "/\$colorscheme:/s/default/darkroast/" $SRC_DIR/_sass/_tweaks-temp.scss
+}
+
 activities_style() {
   sed -i "/\$activities:/s/normal/icon/" $SRC_DIR/_sass/_tweaks-temp.scss
 }
@@ -491,6 +501,10 @@ theme_tweaks() {
 
   if [[ "$dracula" == "true" ]]; then
     install_dracula
+  fi
+
+  if [[ "$darkroast" == "true" ]]; then
+    install_darkroast
   fi
 
   if [[ "$activities" = "icon" ]]; then
@@ -583,7 +597,7 @@ uninstall_theme() {
   for theme in "${THEME_VARIANTS[@]}"; do
     for color in "${COLOR_VARIANTS[@]}"; do
       for size in "${SIZE_VARIANTS[@]}"; do
-        for scheme in '' '-Nord' '-Dracula'; do
+        for scheme in '' '-Nord' '-Dracula' '-Darkroast'; do
           uninstall "${dest:-$DEST_DIR}" "${_name:-$THEME_NAME}" "$theme" "$color" "$size" "$scheme"
         done
       done

@@ -181,6 +181,12 @@ while [[ "$#" -gt 0 ]]; do
         echo -e "Install dracula colorscheme ..."
         shift
         ;;
+      darkroast)
+        darkroast="true"
+        ctype="-Darkroast"
+        echo -e "Install Darkroast colorscheme ..."
+        shift
+        ;;
       dock)
         dockfix="true"
         echo -e "\nFix 'dash-to-dock' or 'ubuntu-dock' style ..."
