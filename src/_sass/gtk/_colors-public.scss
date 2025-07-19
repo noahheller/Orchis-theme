@@ -12,7 +12,6 @@ widget text/foreground color */
 /*
 text color for entries, views and content in general */
 @define-color theme_text_color #{"" + $text};
-@debug #{"" + $text};
 
 /*
 widget base background color */
